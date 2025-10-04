@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Forecast Entry{% endblock %}
+
+{% block content %}
+<div class="flex flex-col h-screen bg-gray-50">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between px-4 py-3 bg-white shadow-md z-20">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Weather Portal</h1>
+      <p class="text-sm text-slate-500">Map-level forecasts (districts + selected states)</p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="{% url 'forecast_list' %}" class="px-3 py-2 border rounded text-sm">List</a>
+      <a href="{% url 'forecast_create' %}" class="px-3 py-2 bg-sky-600 text-white rounded text-sm">New Forecast</a>
+    </div>
+  </header>
+
+  <!-- Controls -->
+  <div class="bg-white shadow-sm px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3 z-20">
+    <div class="flex items-center gap-3">
+      <label class="text-sm text-slate-700">Date:</label>
+      <input id="fe_selectedDate" class="px-3 py-2 border rounded-md" />
+      <button id="fe_todayBtn" class="px-2 py-1 bg-slate-100 rounded">Today</button>
+
+      <label class="text-sm text-slate-700 ml-4">Granularity:</label>
+      <select id="fe_granularity" class="px-3 py-2 border rounded-md">
+        <option value="both">Both</option>
+        <option value="districts">Districts</option>
+        <option value="states">States</option>
+      </select>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <label class="text-sm text-slate-700">Rainfall Category:</label>
+      <select id="fe_categorySelect" class="px-3 py-2 border rounded-md">
+        <option value="">-- Select --</option>
+        <option value="DRY">DRY</option>
+        <option value="ISOL">ISOL</option>
+        <option value="SCT">SCT</option>
+        <option value="FWS">FWS</option>
+        <option value="WS">WS</option>
+      </select>
+
+      <button id="fe_applyBtn" disabled class="px-4 py-2 rounded text-white bg-slate-300 cursor-not-allowed">Apply</button>
+      <button id="fe_clearBtn" class="px-4 py-2 rounded border">Clear</button>
+
+      <button id="fe_saveBtn" class="px-4 py-2 rounded bg-emerald-600 text-white">Save</button>
+    </div>
+  </div>
+
+  <!-- Map area -->
+  <main class="flex-1 relative">
+    <div id="fe_map_container" class="p-6">
+      <div id="fe_map" style="height: 66vh; min-height:420px; width:100%; border-radius:12px; overflow:hidden;"></div>
+    </div>
+
+    <!-- legend -->
+    <div id="fe_legend" class="absolute right-6 bottom-6 bg-white p-3 rounded shadow text-sm w-64"></div>
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  {{ block.super }}
+  <!-- Leaflet CSS/JS like in your map.html -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script>
+    // IMPORTANT: point this to the combined GeoJSON you added to static
+    // Place your uploaded file at: core/static/geojson/combined_regions.geojson
+    // (or adjust the path below to match where you put it)
+    const GEOJSON_URL = "{% static 'geojson/combined_regions.geojson' %}";
+    console.log("forecast_entry: using GEOJSON_URL=", GEOJSON_URL);
+  </script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- flatpickr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- Load forecast entry JS -->
+  <script type="module" src="{% static '/js/forecast_entry_map.js' %}"></script>
+{% endblock %}

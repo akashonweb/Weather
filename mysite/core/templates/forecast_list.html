@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Forecasts - List{% endblock %}
+{% block content %}
+<div class="p-6">
+  <h1 class="text-xl font-semibold mb-4">Forecasts (placeholder list)</h1>
+  <p class="text-sm text-slate-600 mb-4">This is a placeholder. Replace with real queryset and table.</p>
+  {% if forecasts %}
+    <ul>
+      {% for f in forecasts %}
+        <li>{{ f }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="text-sm text-slate-500">No forecasts available (placeholder).</div>
+  {% endif %}
+  <div class="mt-4">
+    <a href="{% url 'forecast_create' %}" class="px-3 py-2 bg-sky-600 text-white rounded">Create new forecast</a>
+  </div>
+</div>
+{% endblock %}

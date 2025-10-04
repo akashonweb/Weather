@@ -1,0 +1,3 @@
+/* minimal fallback CSS - replace with compiled Tailwind if needed */ 
+body { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+a { color: #4f46e5; }

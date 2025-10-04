@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 to-cyan-600">
+  <div class="bg-white/95 p-8 rounded-xl shadow-xl w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-indigo-700">Create Account</h2>
+    <form method="post" id="registerForm" class="space-y-4">
+      {% csrf_token %}
+      <div>
+        <label class="block text-sm font-medium">Username</label>
+        <input name="username" id="username" required class="mt-1 w-full p-2 rounded border" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Password</label>
+        <input name="password" id="password" type="password" required class="mt-1 w-full p-2 rounded border" />
+        <div class="mt-2 text-sm" id="pw-strength"></div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Confirm Password</label>
+        <input name="confirm_password" id="confirm_password" type="password" required class="mt-1 w-full p-2 rounded border" />
+      </div>
+      <div class="text-center">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded font-semibold">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const pw = document.getElementById('password');
+const pws = document.getElementById('pw-strength');
+const form = document.getElementById('registerForm');
+const confirm = document.getElementById('confirm_password');
+
+function scorePassword(p){
+  let score = 0;
+  if (!p) return 0;
+  if (p.length >= 8) score += 1;
+  if (/[A-Z]/.test(p)) score += 1;
+  if (/[0-9]/.test(p)) score += 1;
+  if (/[^A-Za-z0-9]/.test(p)) score += 1;
+  return score;
+}
+
+pw.addEventListener('input', ()=>{
+  const s = scorePassword(pw.value);
+  const labels = ['Very weak','Weak','Okay','Strong','Excellent'];
+  pws.textContent = labels[s];
+  pws.className = s < 2 ? 'text-red-600' : s < 3 ? 'text-yellow-600' : 'text-green-600';
+});
+
+form.addEventListener('submit', (e)=>{
+  if (pw.value !== confirm.value){
+    e.preventDefault();
+    alert('Passwords do not match');
+  }
+});
+</script>
+
+{% endblock %}

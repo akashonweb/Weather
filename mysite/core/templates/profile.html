@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8">
+  <h2 class="text-xl font-bold mb-4">User Profile</h2>
+  <div class="bg-white shadow rounded-lg p-6">
+    <p class="mb-2"><span class="font-medium">Username:</span> {{ user.username }}</p>
+    <p class="mb-2"><span class="font-medium">Email:</span> {{ user.email }}</p>
+    <p class="text-slate-600 mt-4">This is a placeholder profile page. Customize it with more details (forms, profile image, etc.).</p>
+  </div>
+</div>
+{% endblock %}

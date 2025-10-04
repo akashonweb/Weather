@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block nav %}{% endblock %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-500 to-indigo-700">
+  <div class="bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-xl w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-indigo-700">Login</h2>
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      <div>
+        <label class="block text-sm font-medium">Username</label>
+        <input name="username" required class="mt-1 w-full p-2 rounded border" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Password</label>
+        <input name="password" type="password" required class="mt-1 w-full p-2 rounded border" />
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="remember" /> Remember me</label>
+        <a href="#" class="text-sm text-indigo-700">Forgot?</a>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded font-semibold">Login</button>
+      </div>
+    </form>
+    <p class="mt-4 text-center text-sm">Don't have an account? <a href="{% url 'register' %}" class="text-indigo-700 font-medium">Register</a></p>
+  </div>
+</div>
+{% endblock %}

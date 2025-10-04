@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Id": 1,
+        "D_NAME": "Kolkata",
+        "S_NAME": "West Bengal",
+        "DIST_ID": 1,
+        "DIST_NAME": "Kolkata",
+        "STATE_NAME": "West Bengal"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.3639,
+          22.5726
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id": 2,
+        "D_NAME": "Ranchi",
+        "S_NAME": "Jharkhand",
+        "DIST_ID": 2,
+        "DIST_NAME": "Ranchi",
+        "STATE_NAME": "Jharkhand"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.3096,
+          23.3441
+        ]
+      }
+    }
+  ]
+}

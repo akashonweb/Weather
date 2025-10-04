@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}District map — West Bengal{% endblock %}
+
+{% block content %}
+  <div id="topbar" style="padding:10px;background:#0b5;color:#fff;display:flex;gap:10px;align-items:center;">
+    <div><strong>West Bengal District Map</strong></div>
+    <div id="controls" style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+      <label for="district-select" style="color:#004;">District:</label>
+      <select id="district-select"><option>Loading...</option></select>
+      <button id="zoom-to-district" title="Zoom to selected district">Zoom</button>
+    </div>
+  </div>
+
+  <div id="map" style="height: calc(100vh - 66px); width:100%;"></div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Leaflet CSS loaded here so only map page has it -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script>
+    // pass URLs into map.js
+    const GEOJSON_URL = "{% static 'geojson/combined_regions.geojson' %}";
+    const CSV_URL = "{% static 'geojson/districts_from_geojson.csv' %}";
+  </script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- map initialization script (uses GEOJSON_URL and CSV_URL) -->
+  <script src="{% static '../static/js/map.js' %}"></script>
+{% endblock %}

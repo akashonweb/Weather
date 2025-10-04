@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!--<title>{% block title %}Weather Portal{% endblock %} — Weather</title>-->
+
+  <!-- Tailwind CDN kept for quick dev (if you already compile Tailwind in production you can remove this) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  {# keep old 'head' block users were using #}
+  {% block head %}{% endblock %}
+
+  {# additional head block retained for other includes (backwards compatibility) #}
+  {% block extra_head %}{% endblock %}
+
+  <style>
+    :root{
+      --brand-500: #0ea5e9;
+      --muted: #6b7280;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen text-slate-900">
+
+  {# Flash messages (keeps same behaviour you had) #}
+  {% if messages %}
+    <div class="fixed top-4 right-4 z-50 space-y-2">
+      {% for message in messages %}
+        <div class="px-4 py-2 rounded shadow {% if message.tags == 'success' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {# Site nav (keeps a single nav across pages) #}
+  {% block nav %}{% include "includes/_nav.html" %}{% endblock %}
+
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <header class="mb-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">{% block page_heading %}Weather Portal{% endblock %}</h1>
+          <p class="mt-1 text-sm text-slate-600">{% block page_subheading %}{% endblock %}</p>
+        </div>
+        <div class="flex items-center gap-3">
+          {% block header_actions %}{% endblock %}
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-white/60 backdrop-blur-sm border border-slate-100 rounded-2xl shadow-sm p-6">
+      {% block content %}{% endblock %}
+    </section>
+
+    <div class="mt-8">
+      {% include "includes/_footer.html" %}
+    </div>
+  </main>
+
+  {# safeMapCall helper — preserve your original logic so pages can call map safely #}
+  <script>
+    function safeMapCall(fn) {
+      if (typeof fn !== 'function') return;
+      var tried = false;
+      function tryNow() {
+        try {
+          if (typeof map !== 'undefined' && map) {
+            fn(map);
+            return true;
+          }
+        } catch (e) {
+          console && console.warn && console.warn('safeMapCall error', e);
+        }
+        return false;
+      }
+      if (tryNow()) return;
+      function onReady() {
+        if (tried) return;
+        tried = true;
+        if (tryNow()) return;
+        setTimeout(function(){ tryNow(); }, 600);
+      }
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        onReady();
+      } else {
+        document.addEventListener('DOMContentLoaded', onReady);
+      }
+    }
+
+    (function(){
+      if (typeof bounds !== 'undefined') {
+        safeMapCall(function(m){
+          try { if (m && m.fitBounds) m.fitBounds(bounds); } catch(e){ console && console.warn && console.warn('map fit failed', e); }
+        });
+      }
+    })();
+  </script>
+
+  {# Page-specific JS injection point (keeps your original name) #}
+  {% block extra_js %}{% endblock %}
+
+  {# keep compatibility for templates that used 'scripts' block name too #}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

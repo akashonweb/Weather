@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Weather Portal{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-sky-50">
+  <div class="max-w-4xl mx-auto">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Welcome back</h1>
+      <p class="mt-2 text-slate-600">Choose an action to continue — quick links to commonly used pages.</p>
+    </header>
+
+    <!-- Action cards / big buttons -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Forecast Entry -->
+      <a href="{% url 'forecast_entry' %}" 
+         class="group block rounded-2xl bg-white shadow-md hover:shadow-lg transition-shadow p-6 border border-slate-100 hover:-translate-y-0.5 transform">
+        <div class="flex items-start gap-4">
+          <div class="flex-none rounded-full bg-indigo-50 p-3">
+            <!-- forecast icon -->
+            <svg class="h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 018 0M21 13a4 4 0 00-4-4H9" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-slate-900">Forecast Entry</h2>
+            <p class="mt-1 text-sm text-slate-500">Create or edit today’s forecasts. Fast entry forms and validation.</p>
+          </div>
+          <div class="self-center">
+            <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-indigo-600 text-white text-xs font-medium">New</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Realised Entry -->
+      <a href="{% url 'realised_entry' %}" 
+         class="group block rounded-2xl bg-white shadow-md hover:shadow-lg transition-shadow p-6 border border-slate-100 hover:-translate-y-0.5 transform">
+        <div class="flex items-start gap-4">
+          <div class="flex-none rounded-full bg-emerald-50 p-3">
+            <!-- realised icon -->
+            <svg class="h-6 w-6 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-slate-900">Realised Entry</h2>
+            <p class="mt-1 text-sm text-slate-500">Log observed/verified weather values and compare with forecasts.</p>
+          </div>
+          <div class="self-center">
+            <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-medium">Records</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Map / Station plots -->
+      <a href="{% url 'map' %}" 
+         class="group block rounded-2xl bg-white shadow-md hover:shadow-lg transition-shadow p-6 border border-slate-100 hover:-translate-y-0.5 transform">
+        <div class="flex items-start gap-4">
+          <div class="flex-none rounded-full bg-sky-50 p-3">
+            <svg class="h-6 w-6 text-sky-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6.618a2 2 0 011.553-1.894L9 2m6 18l5.447-2.724A2 2 0 0021 15.382V6.618a2 2 0 00-1.553-1.894L15 2" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-slate-900">Station Map</h2>
+            <p class="mt-1 text-sm text-slate-500">View station plots and overlays across the map. Interactive and zoomable.</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Logout or Settings -->
+      <a href="{% url 'logout' %}" 
+         class="group block rounded-2xl bg-white shadow-md hover:shadow-lg transition-shadow p-6 border border-slate-100 hover:-translate-y-0.5 transform">
+        <div class="flex items-start gap-4">
+          <div class="flex-none rounded-full bg-rose-50 p-3">
+            <svg class="h-6 w-6 text-rose-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-slate-900">Logout</h2>
+            <p class="mt-1 text-sm text-slate-500">Sign out of your account securely.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Optional quick links / small buttons row -->
+    <div class="mt-8 flex flex-wrap gap-3 justify-center">
+      <a href="{% url 'forecast_entry' %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-sm font-medium shadow-sm">
+        <!-- small icon -->
+        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 018 0M21 13a4 4 0 00-4-4H9"/></svg>
+        Forecast Entry
+      </a>
+      <a href="{% url 'realised_entry' %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-sm font-medium shadow-sm">
+        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" /></svg>
+        Realised Entry
+      </a>
+      <a href="{% url 'map' %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-sm font-medium shadow-sm">
+        Map
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

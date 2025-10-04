@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create Forecast{% endblock %}
+{% block content %}
+<div class="p-6">
+  <h1 class="text-xl font-semibold mb-4">Create Forecast (placeholder)</h1>
+  <form method="post">
+    {% csrf_token %}
+    <!-- Add real form fields here later -->
+    <div class="mb-4">
+      <label class="block text-sm mb-1">Forecast name (placeholder)</label>
+      <input name="name" class="px-3 py-2 border rounded w-full" />
+    </div>
+    <div>
+      <button class="px-4 py-2 bg-sky-600 text-white rounded">Save</button>
+      <a href="{% url 'forecast_list' %}" class="ml-2 text-sm text-slate-600">Back to list</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
